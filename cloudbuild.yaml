@@ -2,5 +2,9 @@ steps:
 - name: 'gcr.io/triggermesh/operator-sdk'
   args: ['build', 'gcr.io/$PROJECT_ID/operator:$REVISION_ID']
 - name: 'gcr.io/cloud-builders/docker'
+  args: ['tag', 'gcr.io/$PROJECT_ID/operator:$REVISION_ID', 'gcr.io/$PROJECT_ID/operator:latest']
+- name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/operator:$REVISION_ID']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/operator:latest']
 images: ['gcr.io/$PROJECT_ID/operator']
