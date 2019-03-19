@@ -3,6 +3,18 @@
 This is an Operator to install TriggerMesh
 This does not install Knative and Istio
 
+### Access to the Container Images
+
+For now the TriggerMesh container images need a Kubernetes ImagePullSecret to be downloaded. Contact us to get the credentials and then create a secret:
+
+```
+kubectl create secret docker-registry triggermesh-json-key \
+--docker-server=gcr.io \
+--docker-username=_json_key \
+--docker-password="$(cat ~/triggermeshy-key.json)" \
+--docker-email=any@valid.email
+```
+
 ### Build
 
 ```
