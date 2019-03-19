@@ -1,0 +1,5 @@
+---
+- version: v1alpha1
+  group: app.triggermesh.io
+  kind: TriggerMesh
+  chart: /opt/helm/helm-charts/triggermesh
