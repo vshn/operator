@@ -1,42 +1,64 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "triggermesh.fullname" . }}
+  name: {{ include "triggermesh.fullname" . }}-frontend
   labels:
     app.kubernetes.io/name: {{ include "triggermesh.name" . }}
     helm.sh/chart: {{ include "triggermesh.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: frontend
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.frontend.replicaCount }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "triggermesh.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: frontend
   template:
     metadata:
       labels:
         app.kubernetes.io/name: {{ include "triggermesh.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/component: frontend
     spec:
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        - name: dashboard
+          image: "{{ .Values.image.registry }}/{{ .Values.frontend.image }}:{{ .Values.frontend.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: BASE_URL
+              value: "https://{{ .Values.backend.baseHost }}"
           ports:
             - name: http
-              containerPort: 80
-              protocol: TCP
+              containerPort: 8080
+          volumeMounts:
+            - mountPath: /bitnami/nginx/conf/vhosts
+              name: vhost-config
           livenessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 60
           readinessProbe:
             httpGet:
               path: /
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      imagePullSecrets:
+      {{- if .Values.image.existingPullSecret }}
+        - name: {{ .Values.image.existingPullSecret }}
+      {{- else }}
+        - name: {{ template "triggermesh.fullname" . }}-pullsecret
+      {{- end }}
+      volumes:
+        - name: vhost-config
+          configMap:
+            name: {{ include "triggermesh.fullname" . }}
+            items:
+              - key: vhost-ui.conf
+                path: vhost.conf
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

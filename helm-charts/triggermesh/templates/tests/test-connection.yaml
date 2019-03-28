@@ -1,11 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "triggermesh.fullname" . }}-test-connection"
+  name: "{{ include "triggermesh.fullname" . }}-test-frontend-connection"
   labels:
     app.kubernetes.io/name: {{ include "triggermesh.name" . }}
     helm.sh/chart: {{ include "triggermesh.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: frontend
     app.kubernetes.io/managed-by: {{ .Release.Service }}
   annotations:
     "helm.sh/hook": test-success
@@ -14,5 +15,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args:  ['{{ include "triggermesh.fullname" . }}:{{ .Values.service.port }}']
+      args:  ['http://{{ include "triggermesh.fullname" . }}-frontend']
   restartPolicy: Never
