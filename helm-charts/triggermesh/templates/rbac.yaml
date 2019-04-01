@@ -1,0 +1,19 @@
+{{- if .Values.rbac.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "triggermesh.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "triggermesh.name" . }}
+    helm.sh/chart: {{ include "triggermesh.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "triggermesh.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: ""
+{{- end }}

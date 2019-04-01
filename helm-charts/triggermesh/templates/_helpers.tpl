@@ -30,3 +30,8 @@ Create chart name and version as used by the chart label.
 {{- define "triggermesh.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+
+{{- define "triggermesh.imagePullSecret" -}}
+{{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" .Values.image.registry (printf "%s:%s" ( required "Username is required" .Values.image.username) (required "Password is required" .Values.image.password) | b64enc) | b64enc }}
+{{- end }}
