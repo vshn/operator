@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 image:
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   registry: gcr.io
   # existingPullSecret: my-image-pull-secret
   username:
@@ -12,7 +12,7 @@ image:
 frontend:
   baseHost: cloud.tm.demo.vshn.net
   replicaCount: 3
-  image: triggermesh/octest
+  image: gcr.io/triggermesh/tmfront:latest
   tag: latest
 
   ingress:
@@ -30,8 +30,8 @@ frontend:
 backend:
   baseHost: app.tm.demo.vshn.net
   replicaCount: 3
-  image: triggermesh/gh-backend
-  tag: 1390d7958ed912ef6b3f2be54f38c1eed8f0bd52
+  image: gcr.io/triggermesh/tmback
+  tag: latest
 
   ingress:
     enabled: true
