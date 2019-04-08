@@ -1,0 +1,31 @@
+{{- $route := .Values.frontend.route -}}
+{{- $fullName := print (include "triggermesh.fullname" .) "-frontend" -}}
+{{- if $route.enabled -}}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app.kubernetes.io/name: {{ include "triggermesh.name" . }}
+    helm.sh/chart: {{ include "triggermesh.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  {{- with .Values.frontend.route.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  host: {{ .Values.frontend.baseHost }}
+  port:
+    targetPort: http
+  to:
+    kind: Service
+    name: {{ $fullName }}
+    weight: 100
+  {{- if $route.tls }}
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  {{- end }}
+{{- end -}}
