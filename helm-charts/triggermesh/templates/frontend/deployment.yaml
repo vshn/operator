@@ -33,8 +33,11 @@ spec:
             - name: http
               containerPort: 8080
           volumeMounts:
-            - mountPath: /opt/bitnami/nginx/conf/vhosts
-              name: vhost-config
+            - name: vhost-config
+              mountPath: /opt/bitnami/nginx/conf/vhosts
+            - name: env-config
+              mountPath: /opt/bitnami/nginx/html/static/envs.json
+              subPath: envs.json
           livenessProbe:
             httpGet:
               path: /
@@ -59,6 +62,9 @@ spec:
             items:
               - key: vhost-ui.conf
                 path: vhost.conf
+        - name: env-config
+          configMap:
+            name: {{ include "triggermesh.fullname" . }}-frontend
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
