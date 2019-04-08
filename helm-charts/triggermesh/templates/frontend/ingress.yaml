@@ -1,5 +1,6 @@
 {{- $ingress := .Values.frontend.ingress -}}
 {{- $fullName := print (include "triggermesh.fullname" .) "-frontend" -}}
+{{- $backendService := print (include "triggermesh.fullname" .) "-backend" -}}
 {{- if $ingress.enabled -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -32,4 +33,10 @@ spec:
             backend:
               serviceName: {{ $fullName }}
               servicePort: http
+          {{- range $path := .Values.backend.paths }}
+          - path: {{ $path }}
+            backend:
+              serviceName: {{ $backendService }}
+              servicePort: http
+          {{- end }}
 {{- end }}

@@ -33,6 +33,15 @@ backend:
   replicaCount: 3
   image: triggermesh/tmback
   tag: latest
+  paths:
+    - /stats
+    - /register
+    - /status
+    - /pushEvent
+    - /repos
+    - /deregister
+    - /ssl
+    - /token
 
   ingress:
     enabled: false
