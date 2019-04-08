@@ -33,7 +33,7 @@ spec:
             - name: http
               containerPort: 8080
           volumeMounts:
-            - mountPath: /bitnami/nginx/conf/vhosts
+            - mountPath: /opt/bitnami/nginx/conf/vhosts
               name: vhost-config
           livenessProbe:
             httpGet:

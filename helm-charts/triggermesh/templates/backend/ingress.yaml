@@ -1,5 +1,6 @@
-{{- if .Values.backend.ingress.enabled -}}
+{{- $ingress := .Values.backend.ingress -}}
 {{- $fullName := print (include "triggermesh.fullname" .) "-backend" -}}
+{{- if $ingress.enabled -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -10,29 +11,25 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/component: backend
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-  {{- with .Values.backend.ingress.annotations }}
+  {{- with $ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-{{- if .Values.backend.ingress.tls }}
+{{- if $ingress.tls }}
   tls:
-  {{- range .Values.backend.ingress.tls }}
     - hosts:
-      {{- range .hosts }}
-        - {{ . | quote }}
+        - {{ .Values.backend.baseHost }}
+      {{- if $ingress.secretName }}
+      secretName: {{ $ingress.secretName }}
       {{- end }}
-      secretName: {{ .secretName }}
-  {{- end }}
 {{- end }}
   rules:
-  {{- range .Values.backend.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ .Values.backend.baseHost }}
       http:
         paths:
           - path: "/"
             backend:
               serviceName: {{ $fullName }}
               servicePort: http
-  {{- end }}
 {{- end }}
