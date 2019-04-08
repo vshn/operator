@@ -41,19 +41,19 @@ spec:
             {{- end }}
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 80
           volumeMounts:
             - mountPath: /root/munu
               name: data
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySeconds: 60
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #   initialDelaySeconds: 60
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       imagePullSecrets:
