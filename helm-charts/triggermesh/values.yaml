@@ -11,6 +11,9 @@ image:
 
 frontend:
   baseHost: cloud.tm.demo.vshn.net
+  authDomain: triggermesh.auth0.com
+  authApiId: # Auth0 ID
+  sentryDSN: # https://<id>@sentry.io/id
   replicaCount: 3
   image: triggermesh/tmfront
   tag: latest

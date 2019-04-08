@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "triggermesh.fullname" . }}-frontend
+  labels:
+    app.kubernetes.io/name: {{ include "triggermesh.name" . }}
+    helm.sh/chart: {{ include "triggermesh.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  envs.json: |
+    {
+      "BASE_URL": "https://{{ .Values.frontend.baseHost }}",
+      "SITE_URL": "https://{{ .Values.frontend.baseHost }}",
+      "AUTH0_ID": "{{ .Values.secrets.auth0ClientId }}",
+      "AUTH0_API_ID": "{{ .Values.frontend.authApiId }}",
+      "AUTH0_DOMAIN": "{{ .Values.frontend.authDomain }}",
+      "SENTRY_DSN": "{{ .Values.frontend.sentryDSN }}",
+      "SENTRY_RELEASE": "",
+      "GA_TAG": "UA-127409524-2"
+    }
