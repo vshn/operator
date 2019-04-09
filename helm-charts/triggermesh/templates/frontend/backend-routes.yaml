@@ -3,7 +3,7 @@
 {{- $route := .Values.frontend.route -}}
 {{- if $route.enabled -}}
 {{- range $path := .Values.backend.paths }}
-{{- $fullName := print (include "triggermesh.fullname" $) "-" ($path | trimPrefix "/" | lower) }}
+{{- $fullName := print (include "triggermesh.fullname" $) "-frontend" ($path | replace "/" "-" | lower) }}
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
