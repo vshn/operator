@@ -1,0 +1,72 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[{"apiVersion":"app.triggermesh.io/v1alpha1","kind":"TriggerMesh","metadata":{"name":"example-triggermesh"},"spec":{"backend":{"baseHost":"app-test.tm.demo.vshn.net","route":{"annotations":{"kubernetes.io/tls-acme":"true"},"enabled":true}},"frontend":{"authApiId":"\u003cREDACTED\u003e","baseHost":"cloud-test.tm.demo.vshn.net","route":{"annotations":{"kubernetes.io/tls-acme":"true"},"enabled":true},"sentryDSN":"https://\u003cREDACTED\u003e@sentry.io/"},"k8sAPI":{"CA":"-----BEGIN
+      CERTIFICATE-----\nMIIC6jCCAdKgAwIBAgIBATANBgkqhkiG9w0BAQsFADAmMSQwIgYDVQQDDBtvcGVu\nc2hpZnQtc2lnbmVyQDE1NTQzMDQ3MDIwHhcNMTkwNDAzMTUxODIyWhcNMjQwNDAx\nMTUxODIzWjAmMSQwIgYDVQQDDBtvcGVuc2hpZnQtc2lnbmVyQDE1NTQzMDQ3MDIw\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDd/NHyQyCg6a65VywMe3TT\nmuam6XK3gd3iB9vPyTXnzYTx2IEc9vRG9kYmUwu5XE7ZsOXKNaT6Xez1FPhX1FfL\nfKL9MC4n86sFRiT1zE2DfW6ycL6rJ2XaxmAe3HSw5q7FrgH9EWEC3lLPkO4Xygn+\n0T8G3sdBNbPIK8LGLjb1RBeM8Tif1AUABehCY9eb9suY+zzU1/RJ9hY5Y1X4yI4l\n5yotE3KzwL/aphiBiQGXajQLzPg7tFlE5qUuHRgo07Cqsyt9m89gVf8s3s3hfRPe\nttjA5dBnkjfaI8POJp71Nof2rXy2zaDG7QBkILrNozN1PJFH9f6+uCFKkJ8eg/Br\nAgMBAAGjIzAhMA4GA1UdDwEB/wQEAwICpDAPBgNVHRMBAf8EBTADAQH/MA0GCSqG\nSIb3DQEBCwUAA4IBAQCkSB7BiLxBsFIm/JkyoKBupB4MB4GIqNTs+Pxwus0Z2S0U\nfW1QKh745nvNmHkXIaRyKh8dkIqIQDmUFo9FlxiS5zXxAe3F6OYmxAJ3sE24oA1m\nnoyDQ/TlaxLxLFfVo8q3fc/dIYlvyTMeFjoNb22ZClAHgXgwsxJIKhLl7J1Nux4N\nq7nCj1tBff7WGNkzN0Wj7BTMLfCcUpTYXxtRq9gmaXXxWbFLV+B4ViYg1VNJ8VSZ\n/DYgkGOKzO7Y9DFq90gVpat7+XNOGHDZtPP+IiTQZwyONxKT/b1UHJm2Q7iD23Yt\nk302uCcbAC6JcP7+lCmH/X3ZgevgeAe715kwj8Lj\n-----END
+      CERTIFICATE-----\n"},"secrets":{"auth0ClientId":"\u003cREDACTED\u003e","auth0ClientSecret":"\u003cREDACTED\u003e","gitHookSecret":"\u003cREDACTED\u003e"}}}]'
+    capabilities: Basic Install
+  name: operator.v0.0.1
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - kind: TriggerMesh
+      name: triggermeshes.app.triggermesh.io
+      version: v1alpha1
+  description: Placeholder description
+  displayName: Operator
+  install:
+    spec:
+      deployments:
+      - name: operator
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              name: operator
+          strategy: {}
+          template:
+            metadata:
+              labels:
+                name: operator
+            spec:
+              containers:
+              - env:
+                - name: WATCH_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: OPERATOR_NAME
+                  value: operator
+                image: gcr.io/triggermesh/operator:latest
+                imagePullPolicy: Always
+                name: operator
+                resources: {}
+              serviceAccountName: operator
+    strategy: deployment
+  installModes:
+  - supported: true
+    type: OwnNamespace
+  - supported: true
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - triggermesh
+  - knative
+  - istio
+  maintainers:
+  - email: info@appuio.ch
+    name: APPUiO Team
+  maturity: alpha
+  provider:
+    name: TriggerMesh
+  version: 0.0.1
