@@ -1,9 +1,9 @@
-{{- $serviceName := print (include "triggermesh.fullname" .) "-backend" -}}
+{{- $serviceName := print (include "triggermesh.fullname" .) "-k8s" -}}
 {{- $host := .Values.frontend.baseHost }}
 {{- $route := .Values.frontend.route -}}
 {{- if $route.enabled -}}
-{{- range $path := .Values.backend.paths }}
-{{- $fullName := print (include "triggermesh.fullname" $) "-frontend" ($path | replace "/" "-" | lower) }}
+{{- range $path := .Values.k8sAPI.paths }}
+{{- $fullName := print $serviceName ($path | replace "/" "-" | lower) }}
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
@@ -19,7 +19,7 @@ spec:
   host: {{ $host }}
   path: {{ $path }}
   port:
-    targetPort: http
+    targetPort: https
   to:
     kind: Service
     name: {{ $serviceName }}
@@ -27,7 +27,8 @@ spec:
   {{- if $route.tls }}
   tls:
     insecureEdgeTerminationPolicy: Redirect
-    termination: edge
+    termination: reencrypt
+    destinationCACertificate: | {{ required "K8s API CA is required" $.Values.k8sAPI.CA | nindent 6 }}
   {{- end }}
 {{- end -}}
 {{- end -}}
