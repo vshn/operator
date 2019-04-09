@@ -1,6 +1,7 @@
 {{- $ingress := .Values.frontend.ingress -}}
 {{- $fullName := print (include "triggermesh.fullname" .) "-frontend" -}}
 {{- $backendService := print (include "triggermesh.fullname" .) "-backend" -}}
+{{- $k8sService := print (include "triggermesh.fullname" .) "-k8s" -}}
 {{- if $ingress.enabled -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -29,7 +30,7 @@ spec:
     - host: {{ .Values.frontend.baseHost }}
       http:
         paths:
-          - path: "/"
+          - path: /
             backend:
               serviceName: {{ $fullName }}
               servicePort: http
@@ -38,5 +39,11 @@ spec:
             backend:
               serviceName: {{ $backendService }}
               servicePort: http
+          {{- end }}
+          {{- range $path := .Values.k8sAPI.paths }}
+          - path: {{ $path }}
+            backend:
+              serviceName: {{ $k8sService }}
+              servicePort: https
           {{- end }}
 {{- end }}
