@@ -34,5 +34,4 @@ subjects:
 - kind: ServiceAccount
   name: {{ include "triggermesh.fullname" . }}
   namespace: {{ .Release.Namespace }}
-
 {{- end }}
