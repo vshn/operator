@@ -1,12 +1,12 @@
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: operator
+  name: triggermesh-operator
 subjects:
 - kind: ServiceAccount
-  name: operator
+  name: triggermesh-operator
   namespace: operator-test
 roleRef:
   kind: ClusterRole
-  name: cluster-admin
+  name: triggermesh-operator
   apiGroup: rbac.authorization.k8s.io

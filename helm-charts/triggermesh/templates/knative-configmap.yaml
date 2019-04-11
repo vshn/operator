@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-domain
+  namespace: knative-serving
+  labels:
+    app.kubernetes.io/name: {{ include "triggermesh.name" . }}
+    helm.sh/chart: {{ include "triggermesh.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  {{ .Values.frontend.baseHost }}: ""
