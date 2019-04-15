@@ -19,7 +19,7 @@ kubectl create secret docker-registry triggermesh-json-key \
 
 ### Auth0
 
-TriggerMesh uses [Auth0](https://auth0.com/) for Authentication. You need to create a Auth0 application before using this operator.
+TriggerMesh uses [Auth0](https://auth0.com/) for Authentication. You need to create a Auth0 application before using this operator ([how-to](./auth0/auth0.md)).
 
 ## Usage
 
