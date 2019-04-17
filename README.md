@@ -1,4 +1,4 @@
-## TriggerMesh Operator
+# TriggerMesh Operator
 
 This is an Operator to install TriggerMesh
 This does not install Knative and Istio
@@ -7,19 +7,20 @@ This does not install Knative and Istio
 
 ### Access to the Container Images
 
-For now the TriggerMesh container images need a Kubernetes ImagePullSecret to be downloaded. Contact us to get the credentials and then create a secret:
+The frontend and backend are available as container images. You should be able to pull them from the TriggerMesh repository:
 
 ```
-kubectl create secret docker-registry triggermesh-json-key \
---docker-server=gcr.io \
---docker-username=_json_key \
---docker-password="$(cat ~/triggermeshy-key.json)" \
---docker-email=any@valid.email
+docker pull gcr.io/triggermesh/backend 
+docker pull gcr.io/triggermesh/frontend
 ```
 
 ### Auth0
 
-TriggerMesh uses [Auth0](https://auth0.com/) for Authentication. You need to create a Auth0 application before using this operator ([how-to](./auth0/auth0.md)).
+TriggerMesh uses [Auth0](https://auth0.com/) for Authentication. You need to create a Auth0 application before using this operator.
+
+To do so please follow this [how-to](./auth0.md).
+
+Once you are done note down the Auth0 `clientid` and `clientsecret` values.
 
 ## Usage
 
