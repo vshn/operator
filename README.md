@@ -53,6 +53,8 @@ spec:
 ...
 ```
 
+An example is [available](https://github.com/triggermesh/operator/blob/master/deploy/crds/app_v1alpha1_triggermesh_cr.yaml)
+
 And apply it with:
 
 ```
