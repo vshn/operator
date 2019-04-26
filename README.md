@@ -10,8 +10,8 @@ This does not install Knative and Istio
 The frontend and backend are available as container images. You should be able to pull them from the TriggerMesh repository:
 
 ```
-docker pull gcr.io/triggermesh/backend 
-docker pull gcr.io/triggermesh/frontend
+docker pull gcr.io/triggermesh/tmback
+docker pull gcr.io/triggermesh/tmfront
 ```
 
 ### Auth0
