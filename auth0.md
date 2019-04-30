@@ -54,6 +54,9 @@ Go to app connections:
 
 M2M allows to work with auth0 Management API from backend: fetch oauth providers tokens, modify user and etc.
 
+1. Click on "Create application" button in the Dashboard view.  
+![create application](./images/3.png)
+
 1. Define name and Select Machine to machine option:  
 ![select social auth providers](./images/8.png)
 
