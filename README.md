@@ -33,11 +33,11 @@ kubectl create -f https://raw.githubusercontent.com/triggermesh/operator/master/
 Deploy the Operator in your k8s cluster:
 
 ```
-kubectl create -f deploy/service_account.yaml
-kubectl create -f deploy/role.yaml
-kubectl create -f deploy/role_binding.yaml
-kubectl create -f deploy/operator.yaml
+kubectl create -f deploy/
 ```
+
+Note: This deploys the Operator into the namespace `default`. Please update the manifests
+if you want to deploy the Operator into another namespace.
 
 ### Deploy TriggerMesh
 

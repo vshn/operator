@@ -5,7 +5,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: triggermesh-operator
-  namespace: operator-test
+  namespace: default
 roleRef:
   kind: ClusterRole
   name: triggermesh-operator
