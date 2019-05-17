@@ -55,6 +55,7 @@ rules:
 - apiGroups:
   - rbac.authorization.k8s.io
   resources:
+  - clusterroles
   - clusterrolebindings
   - rolebindings
   verbs:
