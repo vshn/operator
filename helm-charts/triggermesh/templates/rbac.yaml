@@ -1,4 +1,81 @@
 {{- if .Values.rbac.create }}
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "triggermesh.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "triggermesh.name" . }}
+    helm.sh/chart: {{ include "triggermesh.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+rules:
+- apiGroups:
+  - ""
+  - apps
+  - batch
+  - extensions
+  - tekton.dev
+  - build.knative.dev
+  - serving.knative.dev
+  - eventing.knative.dev
+  - rbac.authorization.k8s.io
+  - sources.eventing.knative.dev
+  - sources.eventing.triggermesh.dev
+  resources:
+  - serviceaccounts
+  - secrets
+  - routes
+  - roles
+  - rolebindings
+  - revisions
+  - configurations
+  - deployments
+  - builds
+  - buildtemplates
+  - clusterroles
+  - clusterrolebindings
+  - clusterbuildtemplates
+  - clusterchannelprovisioners
+  - channels
+  - namespaces
+  - services
+  - subscriptions
+  - tasks
+  - taskruns
+  - pipelines
+  - pipelineruns
+  - pipelineresources
+  - pods
+  - pods/exec
+  - pods/log
+  - pods/logs
+  - azureeventhubsource
+  - azurestorageblobsource
+  - azurestoragequeuesource
+  - awsdynamodbsource
+  - awscodecommitsource
+  - awskinesissource
+  - awscognitosource
+  - awsiotsource
+  - awssqssource
+  - awssqssources
+  - containersources
+  - cronjobsources
+  - githubsources
+  - gitlabsources
+  - gcppubsubsources
+  - kuberneteseventsources
+  - pubsubsource
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -14,8 +91,8 @@ subjects:
   namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
-  name: cluster-admin
-  apiGroup: ""
+  name: {{ include "triggermesh.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding

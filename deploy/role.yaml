@@ -55,6 +55,7 @@ rules:
 - apiGroups:
   - rbac.authorization.k8s.io
   resources:
+  - clusterroles
   - clusterrolebindings
   - rolebindings
   verbs:
@@ -62,7 +63,7 @@ rules:
 - apiGroups:
   - route.openshift.io
   resources:
-  - routes
+  - '*'
   verbs:
   - '*'
 - apiGroups:
