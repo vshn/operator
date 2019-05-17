@@ -1,3 +1,4 @@
+{{- if .Values.knative.manageConfigDomain }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -10,3 +11,4 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
   {{ .Values.frontend.baseHost }}: ""
+{{- end }}

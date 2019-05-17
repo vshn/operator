@@ -9,6 +9,13 @@ image:
   username:
   password:
 
+# Should this Helm chart manage the Knative ConfigMap `config-domain` in the
+# `knative-serving` namespace?
+# If `false`, Knative Serving domain must be manually configured to
+# match frontend.baseHost
+knative:
+  manageConfigDomain: false
+
 frontend:
   baseHost: cloud.tm.demo.vshn.net
   authDomain: triggermesh.auth0.com
