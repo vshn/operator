@@ -23,7 +23,7 @@ frontend:
   sentryDSN: # https://<id>@sentry.io/id
   replicaCount: 3
   image: triggermesh/tmfront
-  tag: latest
+  tag: v0.0.2
 
   ingress:
     enabled: false
@@ -42,7 +42,7 @@ backend:
   baseHost: app.tm.demo.vshn.net
   replicaCount: 3
   image: triggermesh/tmback
-  tag: latest
+  tag: v0.0.2
   paths:
     - /stats
     - /register
