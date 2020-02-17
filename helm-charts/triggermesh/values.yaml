@@ -65,16 +65,6 @@ backend:
       # kubernetes.io/tls-acme: "true"
     tls: true
 
-k8sAPI:
-  paths:
-    - /api
-    - /apis
-    - /api/v1
-  IP: 172.17.0.1
-  port: 8443
-  CA: # |
-    # -----BEGIN CERTIFICATE-----
-
 secrets:
   # existingAuth0Secret: my-auth0-secret
   auth0ClientId:

@@ -81,4 +81,4 @@ M2M allows to work with auth0 Management API from backend: fetch oauth providers
 Everything is ready for work:
 
 - Take M2M **Client Secret** and **Client ID** and place it to backend ENV variable
-- Take SPA **Client ID** and place to aut0 js sdk.
+- Take SPA **Client ID** and place to auth0 js sdk.

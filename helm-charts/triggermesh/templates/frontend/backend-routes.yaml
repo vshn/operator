@@ -29,5 +29,6 @@ spec:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge
   {{- end }}
+{{ include "chart.helmRouteFix" $ }}
 {{- end -}}
 {{- end -}}
