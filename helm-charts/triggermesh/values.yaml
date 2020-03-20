@@ -42,7 +42,7 @@ backend:
   baseHost: app.tm.demo.vshn.net
   replicaCount: 3
   image: triggermesh/tmback
-  tag: v0.0.3
+  tag: v0.0.4
   paths:
     - /stats
     - /register
