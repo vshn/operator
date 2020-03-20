@@ -56,7 +56,9 @@ rules:
       - pipelineresources
       - pipelineruns
       - pipelines
+      - pods
       - pods/exec
+      - pods/log
       - pubsubsources
       - revisions
       - routes
