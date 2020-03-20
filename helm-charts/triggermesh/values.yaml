@@ -52,6 +52,8 @@ backend:
     - /deregister
     - /ssl
     - /token
+  registryHost: docker.io
+  registrySecretName: docker-registry
   ingress:
     enabled: false
     annotations: {}
