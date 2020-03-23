@@ -14,7 +14,7 @@ data:
       gzip on;
       # Angular CLI already has gzipped the assets (ng build --prod --aot)
       gzip_static  on;
-      location /api* {
+      location /api {
         proxy_pass https://kubernetes.default.svc.cluster.local:443;
       }
       location / {
