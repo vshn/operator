@@ -22,6 +22,29 @@ To do so please follow this [how-to](./auth0.md).
 
 Once you are done note down the Auth0 `clientid` and `clientsecret` values.
 
+### Image registry
+
+Since all user functions are eventually stored as Docker container images, having an image registry reachable from the backend pod is one of the prerequesites. By default, Triggermesh backend is looking for a local unauthenticated registry at `knative.registry.svc.cluster.local` but it can be changed by setting backend env variables:
+
+- `REGISTRY_HOST` - docker registry domain, eg. `index.docker.io`
+- `REGISTRY_SECRET_NAME` - if specified, use this k8s secret to authenticate in registry
+
+k8s secret must be of `docker-registry` type. Also, since this secret is being used as both SA image pull secret and image push config for kaniko executor, creating `config.json` secret key with the same value may be required. 
+
+Please be aware that provided registry secret will be copied to a user namespaces and eventually can be accessed by the user. Creating a dedicated profile and/or using an access token instead of your password may be a good idea.  
+
+### `anyuid` policy
+
+Kaniko project, which is being used in Triggermesh as an image builder, is having an [issue](https://github.com/GoogleContainerTools/kaniko/issues/105) with running in non-privileged containers. To make it work properly in Openshift, we're adding `anyuid` security permission for authenticated users:
+
+```
+oc adm policy add-scc-to-group anyuid system:authenticated   
+```
+
+### frontend cert
+
+TODO
+
 ## Usage
 
 Create the CRD:
