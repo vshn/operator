@@ -21,7 +21,6 @@ rules:
       - extensions
       - messaging.knative.dev
       - messaging.triggermesh.dev
-      - rbac.authorization.k8s.io
       - serving.knative.dev
       - sources.eventing.knative.dev
       - sources.eventing.triggermesh.dev
