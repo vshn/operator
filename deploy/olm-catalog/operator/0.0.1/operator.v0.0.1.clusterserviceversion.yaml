@@ -95,10 +95,6 @@ spec:
           - '*'
           verbs:
           - '*'
-        - apiGroups:
-          - build.knative.dev
-          resources:
-          - buildtemplates
           verbs:
           - '*'
         - apiGroups:

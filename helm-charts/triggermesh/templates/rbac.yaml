@@ -14,59 +14,70 @@ rules:
   - ""
   - apps
   - batch
-  - extensions
-  - tekton.dev
   - build.knative.dev
-  - serving.knative.dev
+  - build.knative.dev
   - eventing.knative.dev
+  - eventing.knative.dev
+  - extensions
+  - messaging.knative.dev
+  - messaging.triggermesh.dev
   - rbac.authorization.k8s.io
+  - serving.knative.dev
   - sources.eventing.knative.dev
   - sources.eventing.triggermesh.dev
+  - tekton.dev
   resources:
-  - serviceaccounts
-  - secrets
-  - routes
-  - roles
-  - rolebindings
-  - revisions
-  - configurations
-  - deployments
+  - apiserversources
+  - awscodecommitsource
+  - awscognitosource
+  - awsdynamodbsource
+  - awsiotsource
+  - awskinesissource
+  - awssqssource
+  - awssqssources
+  - azureeventhubsource
+  - azurestorageblobsource
+  - azurestoragequeuesource
+  - brokers
   - builds
-  - buildtemplates
-  - clusterroles
-  - clusterrolebindings
-  - clusterbuildtemplates
-  - clusterchannelprovisioners
+  - camelsources
   - channels
+  - clusterchannelprovisioners
+  - clusterchannelprovisioners
+  - clusterrolebindings
+  - clusterroles
+  - configurations
+  - containersources
+  - cronjobsources
+  - deployments
+  - gcppubsubsources
+  - githubsources
+  - gitlabsources
+  - inmemorychannels
+  - kafkasources
+  - kinesischannels
+  - kuberneteseventsources
   - namespaces
-  - services
-  - subscriptions
-  - tasks
-  - taskruns
-  - pipelines
-  - pipelineruns
   - pipelineresources
+  - pipelineruns
+  - pipelines
   - pods
   - pods/exec
   - pods/log
   - pods/logs
-  - azureeventhubsource
-  - azurestorageblobsource
-  - azurestoragequeuesource
-  - awsdynamodbsource
-  - awscodecommitsource
-  - awskinesissource
-  - awscognitosource
-  - awsiotsource
-  - awssqssource
-  - awssqssources
-  - containersources
-  - cronjobsources
-  - githubsources
-  - gitlabsources
-  - gcppubsubsources
-  - kuberneteseventsources
-  - pubsubsource
+  - pubsubsources
+  - revisions
+  - rolebindings
+  - roles
+  - routes
+  - secrets
+  - serviceaccounts
+  - services
+  - sinkbindings
+  - subscriptions
+  - taskruns
+  - tasks
+  - triggers
   verbs:
   - get
   - list
@@ -75,6 +86,7 @@ rules:
   - update
   - patch
   - delete
+  - deletecollection
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding

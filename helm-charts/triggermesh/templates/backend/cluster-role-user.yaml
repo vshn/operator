@@ -1,71 +1,8 @@
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: triggermesh-operator
+  name: triggermesh-user
 rules:
-  - verbs:
-      - '*'
-    apiGroups:
-      - ''
-    resources:
-      - pods
-      - services
-      - endpoints
-      - persistentvolumeclaims
-      - events
-      - configmaps
-      - secrets
-      - serviceaccounts
-  - verbs:
-      - get
-    apiGroups:
-      - ''
-    resources:
-      - namespaces
-  - verbs:
-      - '*'
-    apiGroups:
-      - apps
-    resources:
-      - deployments
-      - daemonsets
-      - replicasets
-      - statefulsets
-  - verbs:
-      - '*'
-    apiGroups:
-      - extensions
-    resources:
-      - ingresses
-  - verbs:
-      - get
-      - create
-    apiGroups:
-      - monitoring.coreos.com
-    resources:
-      - servicemonitors
-  - verbs:
-      - update
-    apiGroups:
-      - apps
-    resources:
-      - deployments/finalizers
-    resourceNames:
-      - operator
-  - verbs:
-      - '*'
-    apiGroups:
-      - rbac.authorization.k8s.io
-    resources:
-      - clusterroles
-      - clusterrolebindings
-      - rolebindings
-  - verbs:
-      - '*'
-    apiGroups:
-      - route.openshift.io
-    resources:
-      - '*'
   - verbs:
       - get
       - list
@@ -76,7 +13,18 @@ rules:
       - delete
       - deletecollection
     apiGroups:
-      - app.triggermesh.io
+      - ''
+      - apps
+      - batch
+      - build.knative.dev
+      - eventing.knative.dev
+      - extensions
+      - messaging.knative.dev
+      - messaging.triggermesh.dev
+      - serving.knative.dev
+      - sources.eventing.knative.dev
+      - sources.eventing.triggermesh.dev
+      - tekton.dev
     resources:
       - apiserversources
       - awscodecommitsource
@@ -107,7 +55,9 @@ rules:
       - pipelineresources
       - pipelineruns
       - pipelines
+      - pods
       - pods/exec
+      - pods/log
       - pubsubsources
       - revisions
       - routes

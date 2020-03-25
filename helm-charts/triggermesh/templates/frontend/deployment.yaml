@@ -34,9 +34,9 @@ spec:
               containerPort: 8080
           volumeMounts:
             - name: vhost-config
-              mountPath: /opt/bitnami/nginx/conf/vhosts
+              mountPath: /etc/nginx/conf.d/
             - name: env-config
-              mountPath: /opt/bitnami/nginx/html/static/envs.json
+              mountPath: /usr/share/nginx/html/static/envs.json
               subPath: envs.json
           livenessProbe:
             httpGet:
@@ -60,7 +60,7 @@ spec:
           configMap:
             name: {{ include "triggermesh.fullname" . }}
             items:
-              - key: vhost-ui.conf
+              - key: vhost.conf
                 path: vhost.conf
         - name: env-config
           configMap:

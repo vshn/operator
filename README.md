@@ -5,6 +5,11 @@ This does not install Knative and Istio
 
 ## Pre-requisites
 
+Install the following operators:
+- [tektoncd](https://github.com/tektoncd/operator)
+- [Knative Eventing Operator](https://operatorhub.io/operator/knative-eventing-operator)
+- [OpenShift Serverless Operator](https://github.com/openshift-knative/serverless-operator)
+
 ### Access to the Container Images
 
 The frontend and backend are available as container images. You should be able to pull them from the TriggerMesh repository:

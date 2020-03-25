@@ -10,6 +10,7 @@ spec:
       annotations:
         kubernetes.io/tls-acme: "true"
     authApiId: <REDACTED>
+    auth0ClientId: <REDACTED>
     sentryDSN: https://<REDACTED>@sentry.io/
   backend:
     baseHost: app-test.tm.demo.vshn.net

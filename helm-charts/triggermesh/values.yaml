@@ -23,7 +23,7 @@ frontend:
   sentryDSN: # https://<id>@sentry.io/id
   replicaCount: 3
   image: triggermesh/tmfront
-  tag: v0.0.2
+  tag: v0.0.3
 
   ingress:
     enabled: false
@@ -42,16 +42,20 @@ backend:
   baseHost: app.tm.demo.vshn.net
   replicaCount: 3
   image: triggermesh/tmback
-  tag: v0.0.3
+  tag: v0.0.4
   paths:
-    - /stats
-    - /register
-    - /status
-    - /pushEvent
-    - /repos
     - /deregister
+    - /pushEvent
+    - /register
+    - /repos
     - /ssl
+    - /stats
+    - /status
+    - /tmconfig
     - /token
+  registryHost: docker.io
+  registrySecretName: docker-registry
+  frontendDefaultTLSSecretName: openshift-ingress/router-certs-default
   ingress:
     enabled: false
     annotations: {}
@@ -64,16 +68,6 @@ backend:
     annotations: {}
       # kubernetes.io/tls-acme: "true"
     tls: true
-
-k8sAPI:
-  paths:
-    - /api
-    - /apis
-    - /api/v1
-  IP: 172.17.0.1
-  port: 8443
-  CA: # |
-    # -----BEGIN CERTIFICATE-----
 
 secrets:
   # existingAuth0Secret: my-auth0-secret

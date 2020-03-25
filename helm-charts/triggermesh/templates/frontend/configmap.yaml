@@ -13,7 +13,7 @@ data:
     {
       "BASE_URL": "https://{{ .Values.frontend.baseHost }}",
       "SITE_URL": "https://{{ .Values.frontend.baseHost }}",
-      "AUTH0_ID": "{{ .Values.secrets.auth0ClientId }}",
+      "AUTH0_ID": "{{ .Values.frontend.auth0ClientId }}",
       "AUTH0_API_ID": "{{ .Values.frontend.authApiId }}",
       "AUTH0_DOMAIN": "{{ .Values.frontend.authDomain }}",
       "SENTRY_DSN": "{{ .Values.frontend.sentryDSN }}",

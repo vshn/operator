@@ -35,3 +35,9 @@ Create chart name and version as used by the chart label.
 {{- define "triggermesh.imagePullSecret" -}}
 {{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" .Values.image.registry (printf "%s:%s" ( required "Username is required" .Values.image.username) (required "Password is required" .Values.image.password) | b64enc) | b64enc }}
 {{- end }}
+
+{{- define "chart.helmRouteFix" -}}
+status:
+  ingress:
+    - host: ""
+{{- end -}}

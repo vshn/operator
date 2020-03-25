@@ -28,11 +28,23 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: BASE_URL
-              value: "https://{{ .Values.backend.baseHost }}"
+              value: "https://{{ .Values.frontend.baseHost }}"
+            - name: AUTH0_URL
+              value: "{{ .Values.backend.auth0_url }}"
             - name: TM_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+            - name: REGISTRY_HOST
+              value: {{ .Values.backend.registryHost }}
+            - name: REGISTRY_SECRET_NAME
+              value: {{ .Values.backend.registrySecretName }}
+            - name: FRONTEND_TLS_SECRET_NAME
+              {{- if .Values.frontend.ingress.secretName }}
+              value: {{ .Release.Namespace }}/{{ .Values.frontend.ingress.secretName }}
+              {{- else }}
+              value: {{ .Values.backend.frontendDefaultTLSSecretName }}
+              {{- end }}
             - name: GIT_HOOK_SECRET_NAME
             {{- if .Values.secrets.existingGitHookSecret }}
               value: {{ .Values.secrets.existingGitHookSecret }}
@@ -41,7 +53,7 @@ spec:
             {{- end }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
           volumeMounts:
             - mountPath: /root/munu
               name: data
