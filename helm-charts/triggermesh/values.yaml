@@ -44,13 +44,14 @@ backend:
   image: triggermesh/tmback
   tag: v0.0.4
   paths:
-    - /stats
-    - /register
-    - /status
-    - /pushEvent
-    - /repos
     - /deregister
+    - /pushEvent
+    - /register
+    - /repos
     - /ssl
+    - /stats
+    - /status
+    - /tmconfig
     - /token
   registryHost: docker.io
   registrySecretName: docker-registry
