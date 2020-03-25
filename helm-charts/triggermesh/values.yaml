@@ -55,6 +55,7 @@ backend:
     - /token
   registryHost: docker.io
   registrySecretName: docker-registry
+  frontendDefaultTLSSecretName: openshift-ingress/router-certs-default
   ingress:
     enabled: false
     annotations: {}
