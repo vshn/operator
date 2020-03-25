@@ -28,7 +28,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: BASE_URL
-              value: "https://{{ .Values.backend.baseHost }}"
+              value: "https://{{ .Values.frontend.baseHost }}"
             - name: AUTH0_URL
               value: "{{ .Values.backend.auth0_url }}"
             - name: TM_NAMESPACE
