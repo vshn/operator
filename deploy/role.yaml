@@ -118,4 +118,5 @@ rules:
       - subscriptions
       - taskruns
       - tasks
+      - triggermeshes
       - triggers
