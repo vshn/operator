@@ -55,7 +55,7 @@ idea.
 Kaniko project, which is being used in Triggermesh as an image builder, is
 having an [issue](https://github.com/GoogleContainerTools/kaniko/issues/105)
 with running in non-privileged containers. To make it work properly in
-Openshift, we're adding `anyuid` security permission for authenticated users:
+OpenShift, we're adding `anyuid` security permission for authenticated users:
 
 ```
 oc adm policy add-scc-to-group anyuid system:authenticated
